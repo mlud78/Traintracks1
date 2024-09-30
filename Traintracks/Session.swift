@@ -6,3 +6,9 @@
 //
 
 import Foundation
+import SwiftUICore
+
+struct Session: Identifiable {
+    var id: UUID = UUID()
+    var drills: [Drill]
+}

@@ -8,30 +8,32 @@
 import SwiftUI
 
 struct DrillSelectionView: View {
-    
-    
-//    var firstDrill = Drill(name: "harder spts", description: "30s hold + 45s rest, 10 times", value: 40, color: "red")
-//    var secondDrill = Drill(name: "spts", description: "20s hold + 40s rest, 10 times", value: 30, color: "orange")
-//    
-//    var drills:[Drill] = [firstDrill, secondDrill]
-//    Text(firstDrill.name)
+
     
     
     @State var drills:[Drill] = [Drill]()
     var dataService = DataService()
+    @State var currentSession: [Drill] = []
+    @State var isNavigating = false
     
     var body: some View {
         VStack {
-            Text("drills:")
-                .font(.largeTitle)
             Text("(select a drill to add it to the current session and take notes on it)")
-                
-            List($drills) { drill in
-                
-                DrillListRow(drill: drill.wrappedValue)
+            NavigationStack {
+                List($drills) { drill in
+                    Button(action: {
+                        currentSession.append(drill.wrappedValue)
+                        isNavigating = true
+                    }) {
+                        DrillListRow(drill: drill.wrappedValue)
+                    }
+                }
+                .listStyle(.plain)
+                .navigationTitle("Drills")
+                .navigationDestination(isPresented: $isNavigating) {
+                    SessionView(currentSession: currentSession)
+                }
             }
-            .listStyle(.plain)
-            
             .onAppear {
                 drills = dataService.getData()
             }

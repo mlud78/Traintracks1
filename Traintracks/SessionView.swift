@@ -8,11 +8,23 @@
 import SwiftUI
 
 struct SessionView: View {
+    
+    var currentSession: [Drill]
+    @State var notes: String = "write notes here"
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+
+        List(currentSession) { drill in
+            HStack {
+                Text(drill.name)
+                
+                TextEditor(text: $notes)
+                    .foregroundStyle(Color.gray)
+            }
+        }
     }
 }
 
 #Preview {
-    SessionView()
+    SessionView(currentSession:[Drill(name: "n", description: "d", value: 1, color: .red)])
 }
