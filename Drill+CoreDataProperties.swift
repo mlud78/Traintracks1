@@ -2,7 +2,7 @@
 //  Drill+CoreDataProperties.swift
 //  Traintracks
 //
-//  Created by Maddy Ludes on 10/6/24.
+//  Created by Maddy Ludes on 10/21/24.
 //
 //
 
@@ -20,6 +20,7 @@ extension Drill {
     @NSManaged public var desc: String?
     @NSManaged public var id: UUID?
     @NSManaged public var name: String?
+    @NSManaged public var useCount: Int16
     @NSManaged public var value: Int16
     @NSManaged public var practiceSession: PracticeSession?
 
